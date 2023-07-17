@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('ciudad', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre', 30);
+
+            $table->bigInteger('departamento_id')->unsigned();
+
+            $table->foreign('departamento_id')->references('id')->on('departamento')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
