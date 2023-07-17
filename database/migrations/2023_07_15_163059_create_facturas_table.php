@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
+            $table->decimal('subtotal', 10,2);
+            $table->decimal('total', 10,2);
+
+            $table->bigInteger('idCliente')->unsigned();
+            $table->bigInteger('idEmpleado')->unsigned();
+
+            $table->foreign('idCliente')->references('id')->on('clientes')->onDelete('cascade');
+            $table->foreign('idEmpleado')->references('id')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }
