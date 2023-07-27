@@ -22,6 +22,12 @@
                                     @endif
                                 </div>
                                 <div class="form-group mb-3">
+                                    <input type="password" placeholder="Password" id="password" class="form-control" name="password" required autofocus>
+                                    @if($errors->has('email'))
+                                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    @endif
+                                </div>
+                                <div class="form-group mb-3">
                                     <div class="checkbox">
                                         <label><input type="checkbox" name="remember">Recordarme</label>
                                     </div>
