@@ -1,30 +1,43 @@
-<div style="margin-bottom: 1em;">
-    <a href="{{ route('categories.index') }}">Category List</a>
-</div>
+@extends('app')
 
-<h1>Create Category</h1>
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3>Create Category</h3>
+                            <a href="{{ route('categories.index') }}" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @if(session('message'))
+                            <div class="alert alert-success">{{ session('message') }}</div>
+                        @endif
 
-@if(session('message'))
-    <div style="color: green">{{ session('message') }}</div>
-@endif
-
-<form action="{{ route('categories.create') }}" method="post">
-    @csrf
-    <div style="margin-bottom: 1em;">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" placeholder="Enter category">
-        @error('name')
-        <div style="color: red;">{{ $message }}</div>
-        @enderror
+                        <form action="{{ route('categories.create') }}" method="post">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Enter category">
+                                @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">description</label>
+                                <input type="text" name="description" id="description" class="form-control" placeholder="Enter description">
+                                @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div style="margin-bottom: 1em;">
-        <label for="description">Description</label>
-        <input type="text" name="description" id="description" placeholder="Enter description">
-        @error('description')
-        <div style="color: red;">{{ $message }}</div>
-        @enderror
-    </div>
-    <div>
-        <button type="submit">Submit</button>
-    </div>
-</form>

@@ -1,40 +1,60 @@
-<div><a href="/">Home</a></div>
-<a href="{{ route('products.create') }}">New Product</a>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+</head>
+<body>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <div><a href="/" class="btn btn-primary">Home</a></div>
+        <div><a href="{{ route('products.create')}}" class="btn btn-successs">New Product</a></div>
+    </div>
 
-@if(session('message'))
-    <div style="color: green;">{{ session('message') }}</div>
-@endif
+    @if(session('message'))
+        <div class="alert alert-success">{{ session('message') }}</div>
+    @endif
 
-<table cellpadding="10" cellspacing="1" border="1">
-    <thead>
-    <tr>
-        <td>No.</td>
-        <td>Name</td>
-        <td>Price</td>
-        <td>Category</td>
-        <td>Action</td>
-    </tr>
-    </thead>
-    <tbody>
-    @forelse($products as $key = $products)
-        <tr>
-            <td>{{ $categories->firstItem() + $key}}.</td>
-            <td>{{ $category->name }}</td>
-            <td>{{ $category->description }}</td>
-            <td>{{ $category->created_at->format('F d, Y') }}</td>
-            <td>
-                <a href="{{ route('categories.edit', $category) }}">Edit</a>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <td>No.</td>
+                <td>Name</td>
+                <td>Price</td>
+                <td>Category</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse($products as $key => $product)
+                <tr>
+                    <td>{{ $products->firstItem() + $key }}.</td>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->price }}</td>
+                    <td>
+                        {{ $product->category->name }}
+                    </td>
+                    <td>{{ $product->created_at->format('F d, Y') }}</td>
+                    <td>
+                        <a href="{{ route('products.edit', $product) }}">Edit</a>
+                        <form action="{{ route('products.delete', $product) }}" method="post">
+                            @csrf
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan=""5>No data found in table</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
 
-                <form action="{{ route('categories.delete', $category) }}" method="post">
-                    @csrf
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-    @empty
-        <tr>
-            <td colspan=""5>No data found in table</td>
-        </tr>
-    @endforelse
-    </tbody>
-</table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
