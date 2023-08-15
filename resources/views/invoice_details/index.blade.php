@@ -26,17 +26,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($invoicedetails as $key => $invoicedetail)
+                @forelse($invoice_details as $key => $invoice_detail)
                     <tr>
-                        <td>{{$invoicedetails->firstItem() + $key }}.</td>
-                        <td>{{$invoicedetail->price }}</td>
-                        <td>{{$invoicedetail->amount }}</td>
-                        <td>{{$invoicedetail->product->name }}</td>
-                        <td>{{$invoicedetail->Bill->Total }}</td>
-                        <td>{{$invoicedetail->created_at->format('F d ,Y')}}</td>
+                        <td>{{$invoice_details->firstItem() + $key }}.</td>
+                        <td>{{$invoice_detail->price }}</td>
+                        <td>{{$invoice_detail->amount }}</td>
+                        <td>{{$invoice_detail->product->name }}</td>
+                        <td>{{$invoice_detail->Bill->Total }}</td>
+                        <td>{{$invoice_detail->created_at->format('F d ,Y')}}</td>
                         <td>
-                            <a href="{{ route('invoice_details.edit', $invoicedetail) }}" class="btn btn-primary btn-sm">Edit</a>
-                            <form action="{{ route('invoice_details.delete', $invoicedetail) }}" method="post" style="display: inline;">
+                            <a href="{{ route('invoice_details.edit', $invoice_detail) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <form action="{{ route('invoice_details.delete', $invoice_detail) }}" method="post" style="display: inline;">
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>

@@ -5,7 +5,7 @@
     <div class="container mt-4">
         <div class="d-flex justify-content-between mb-3">
             <div><a href="/" class="btn btn-primary">Home</a></div>
-            <div><a href="{{ route('cities.create') }}" class="btn btn-success">New Department</a></div>
+            <div><a href="{{ route('cities.create') }}" class="btn btn-success">New Cities</a></div>
         </div>
 
         @if(session('message'))

@@ -6,6 +6,11 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\DepartmentController;
 use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\ClientController;
+use App\Http\Controllers\Api\ProviderController;
+use App\Http\Controllers\Api\BillController;
+use App\Http\Controllers\Api\InvoiceDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +34,14 @@ Route::apiResource('products', ProductController::class);
 Route::apiResource('departments', DepartmentController::class);
 
 Route::apiResource('cities', CityController::class);
+
+Route::apiResource('employees', EmployeeController::class);
+
+Route::apiResource('clients', ClientController::class);
+
+Route::apiResource('providers', ProviderController::class);
+
+Route::apiResource('bills', BillController::class);
+
+Route::apiResource('invoiceDetails', InvoiceDetailController::class);
 
