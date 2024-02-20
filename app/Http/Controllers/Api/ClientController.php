@@ -11,9 +11,26 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $clients = Client::all();
+        // Obtener todos los clientes
+        $clients = Client::query();
+
+        // Filtrar por nombre si se proporciona el parámetro de consulta 'name'
+        if ($request->has('name')) {
+            $clients->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        // Filtrar por email si se proporciona el parámetro de consulta 'email'
+        if ($request->has('email')) {
+            $clients->where('email', $request->input('email'));
+        }
+
+        // Obtener los clientes paginados
+        $perPage = $request->input('per_page', 15);
+        $clients = $clients->paginate($perPage);
+
+        // Devolver los clientes paginados en formato JSON
         return response()->json([
             'status' => true,
             'clients' => $clients
@@ -25,6 +42,12 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:clients,email',
+            // Otros campos requeridos o reglas de validación si es necesario
+        ]);
+
         $client = Client::create($request->all());
 
         return response()->json([

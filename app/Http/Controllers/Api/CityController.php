@@ -11,9 +11,26 @@ class CityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cities = City::all();
+        // Obtener todas las ciudades
+        $cities = City::query();
+
+        // Filtrar por nombre si se proporciona el parámetro de consulta 'name'
+        if ($request->has('name')) {
+            $cities->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        // Filtrar por departamento si se proporciona el parámetro de consulta 'department_id'
+        if ($request->has('department_id')) {
+            $cities->where('department_id', $request->input('department_id'));
+        }
+
+        // Obtener las ciudades paginadas
+        $perPage = $request->input('per_page', 15);
+        $cities = $cities->paginate($perPage);
+
+        // Devolver las ciudades paginadas en formato JSON
         return response()->json([
             'status' => true,
             'cities' => $cities

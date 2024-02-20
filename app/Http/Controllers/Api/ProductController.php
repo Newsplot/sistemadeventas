@@ -12,9 +12,31 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        // Obtener todos los productos
+        $products = Product::query();
+
+        // Filtrar por nombre si se proporciona el parámetro de consulta 'name'
+        if ($request->has('name')) {
+            $products->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        // Filtrar por precio mínimo si se proporciona el parámetro de consulta 'min_price'
+        if ($request->has('min_price')) {
+            $products->where('price', '>=', $request->input('min_price'));
+        }
+
+        // Filtrar por precio máximo si se proporciona el parámetro de consulta 'max_price'
+        if ($request->has('max_price')) {
+            $products->where('price', '<=', $request->input('max_price'));
+        }
+
+        // Obtener los productos paginados
+        $perPage = $request->input('per_page', 15);
+        $products = $products->paginate($perPage);
+
+        // Devolver los productos paginados en formato JSON
         return response()->json([
             'status' => true,
             'products' => $products

@@ -11,9 +11,26 @@ class BillController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bills = Bill::all();
+        // Obtener todas las facturas
+        $bills = Bill::query();
+
+        // Filtrar por número de factura si se proporciona el parámetro de consulta 'invoice_number'
+        if ($request->has('invoice_number')) {
+            $bills->where('invoice_number', $request->input('invoice_number'));
+        }
+
+        // Filtrar por cliente si se proporciona el parámetro de consulta 'client_id'
+        if ($request->has('client_id')) {
+            $bills->where('client_id', $request->input('client_id'));
+        }
+
+        // Obtener las facturas paginadas
+        $perPage = $request->input('per_page', 15);
+        $bills = $bills->paginate($perPage);
+
+        // Devolver las facturas paginadas en formato JSON
         return response()->json([
             'status' => true,
             'bills' => $bills

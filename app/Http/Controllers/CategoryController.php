@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
+{public function index()
 {
-    public function index()
-    {
-        return view('categories.index', [
-            'categories' => Category::paginate()
-        ]);
-    }
+    return view('categories.index', [
+        'categories' => Category::paginate()
+    ]);
+}
+
 
     public function create()
     {

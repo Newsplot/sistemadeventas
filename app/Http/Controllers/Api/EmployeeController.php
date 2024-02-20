@@ -11,9 +11,26 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::all();
+        // Obtener todos los empleados
+        $employees = Employee::query();
+
+        // Filtrar por nombre si se proporciona el parámetro de consulta 'name'
+        if ($request->has('name')) {
+            $employees->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        // Filtrar por cargo si se proporciona el parámetro de consulta 'position'
+        if ($request->has('position')) {
+            $employees->where('position', 'like', '%' . $request->input('position') . '%');
+        }
+
+        // Obtener los empleados paginados
+        $perPage = $request->input('per_page', 15);
+        $employees = $employees->paginate($perPage);
+
+        // Devolver los empleados paginados en formato JSON
         return response()->json([
             'status' => true,
             'employees' => $employees

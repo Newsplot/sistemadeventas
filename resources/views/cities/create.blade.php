@@ -19,15 +19,15 @@
                         <form action="{{ route('cities.create') }}" method="post">
                             @csrf
                             <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
+                                <label for="name" class="form-label h4">Name</label>
                                 <input type="text" name="name" id="name" class="form-control" placeholder="Enter Department">
                                 @error('name')
                                 <div class="text-danger">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="department_id">Department</label>
-                                <select name="department_id" id="department_id">
+                                <label for="department_id" class="h4">Department</label>
+                                <select name="department_id" class="form-select form-select-lg mb-3" id="department_id">
                                     <option value="">Select</option>
                                     @foreach($departments as $department)
                                         <option

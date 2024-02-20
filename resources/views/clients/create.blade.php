@@ -55,7 +55,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="city_id">City</label>
-                                <select name="city_id" id="city_id">
+                                <select name="city_id" class="form-select form-select-lg mb-3" id="city_id">
                                     <option value="">Select</option>
                                     @foreach($cities as $city)
                                         <option

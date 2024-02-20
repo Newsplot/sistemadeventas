@@ -11,9 +11,26 @@ class DepartmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $departments = Department::all();
+        // Obtener todos los departamentos
+        $departments = Department::query();
+
+        // Filtrar por nombre si se proporciona el parámetro de consulta 'name'
+        if ($request->has('name')) {
+            $departments->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        // Filtrar por código si se proporciona el parámetro de consulta 'code'
+        if ($request->has('code')) {
+            $departments->where('code', $request->input('code'));
+        }
+
+        // Obtener los departamentos paginados
+        $perPage = $request->input('per_page', 15);
+        $departments = $departments->paginate($perPage);
+
+        // Devolver los departamentos paginados en formato JSON
         return response()->json([
             'status' => true,
             'departments' => $departments

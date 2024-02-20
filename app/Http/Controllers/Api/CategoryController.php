@@ -9,12 +9,21 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
+        $categories = Category::query();
+
+        if ($request->has('name')) {
+            $categories->where('name', 'like', '%' . $request->input('name') . '%');
+        }
+
+        if ($request->has('description')) {
+            $categories->where('description', 'like', '%' . $request->input('description') . '%');
+        }
+
+        $perPage = $request->input('per_page', 15);
+        $categories = $categories->paginate($perPage);
+
         return response()->json([
             'status' => true,
             'categories' => $categories
