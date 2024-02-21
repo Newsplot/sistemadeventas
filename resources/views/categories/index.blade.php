@@ -1,6 +1,5 @@
 @extends('app')
 @section('content')
-
     <div class="container mt-4">
         <div class="d-flex justify-content-between mb-3">
             <div><a href="/" class="btn btn-primary">Home</a></div>

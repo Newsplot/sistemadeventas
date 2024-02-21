@@ -20,6 +20,7 @@
                 <td>Name</td>
                 <td>Price</td>
                 <td>Category</td>
+                <td>Timestamp</td>
                 <td>Action</td>
             </tr>
             </thead>
@@ -43,7 +44,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan=""5>No data found in table</td>
+                    <td colspan="5">No data found in table</td>
                 </tr>
             @endforelse
             </tbody>

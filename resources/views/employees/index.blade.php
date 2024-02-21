@@ -21,6 +21,7 @@
                     <th>LastName</th>
                     <th>Address</th>
                     <th>Phone</th>
+                    <th>City</th>
                     <th>Timestamp</th>
                     <th>Action</th>
                 </tr>

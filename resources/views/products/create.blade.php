@@ -34,7 +34,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="category_id">Category</label>
-                                <select name="category_id" id="category_id">
+                                <select name="category_id" class="form-select form-select-lg mb-3" id="category_id">
                                     <option value="">Select</option>
                                     @foreach($categories as $category)
                                         <option
